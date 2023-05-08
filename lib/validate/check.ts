@@ -43,6 +43,8 @@ const cString = (val: any, expect: Expect) => {
   if (!cRequired(val, expect).is) return { is: false };
   if (expect.enum && !cEnum(val, expect).is) return { is: false };
   if (expect.format && !cFormat(val, expect).is) return { is: false };
+  if (expect.minLength && expect.minLength > val.length) return { is: false };
+  if (expect.maxLength && expect.maxLength < val.length) return { is: false };
   return typeof val === 'string'
     ? { is: true, val: String(val) }
     : { is: false };
